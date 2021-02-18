@@ -7,6 +7,8 @@ const app = express(),
 const users = [];
 app.use(bodyParser.json());
 
+app.use(express.static(path.resolve(__dirname, '../site/build')));
+
 // app.get('/api/users', (req, res) => {
 //     console.log('User API called');
 //     res.json(users);
