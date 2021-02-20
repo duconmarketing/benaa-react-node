@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const app = express(),
@@ -21,8 +22,15 @@ app.use(express.static(path.resolve(__dirname, '../site/build')));
 //     res.json('user added');
 // });
 
+const api = require('./routes/routes');
+app.use('/api/v1/', api);
+
 app.get('/', (req, res) => {
     res.send('App is ready');
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../site/build', 'index.html'));
 });
 
 app.listen(port, () => {
@@ -31,5 +39,3 @@ app.listen(port, () => {
 
 // app.use(cors());
 
-const api = require('./routes/routes');
-app.use('/api/v1/', api);
